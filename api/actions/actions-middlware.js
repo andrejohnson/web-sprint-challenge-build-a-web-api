@@ -12,7 +12,7 @@ async function validateActionId(req, res, next){
             next()
         }
     }catch(err){
-        res.status(400).json({message: 'an error occured, action not found'})
+        next({status: 400, message: 'an error occured, action not found'})
     }
 }
 
@@ -22,7 +22,7 @@ async function validateAction (req, res, next){
         next({status: 400, message: 'missing required project id'})
     }
     if(!notes || !notes.trim){
-        res.status(400).json({message: 'missing required project notes'})
+        next({status: 400, message: 'missing required project notes'})
     } else{
         req.project_id = project_id
         req.description = description.trim()

@@ -10,16 +10,16 @@ router.get('/', async (req, res ,next) => {
     try{
         const actions = await Actions.get()
         res.status(200).json(actions)
-    } catch(err) {
-        next(err)
+    } catch(err){
+        next({status: 400, message: 'an error occured'})
     }
 })
 
 router.get("/:id", validateActionId, async (req, res, next) => {
     try{
         res.status(200).json(req.action)
-    } catch{
-        next()
+    } catch(err){
+        next({status: 400, message: 'an error occured'})
     }
 })
 
@@ -28,8 +28,8 @@ router.post("/", async (req, res ,next) => {
         const newAction = await Actions.insert(req.body)
         console.log(newAction)
         res.status(201).json(newAction)
-    } catch (err){
-        next(err)
+    } catch(err){
+        next({status: 400, message: 'an error occured'})
     }
 })
 
@@ -49,7 +49,7 @@ router.delete("/:id", validateActionId, async (req, res, next) => {
         await Actions.remove(req.params.id)
         res.json(res.Action)
     } catch(err){
-        next(err)
+        next({status: 400, message: 'an error occured'})
     }
 })
 
