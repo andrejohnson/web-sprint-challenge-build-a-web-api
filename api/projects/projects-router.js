@@ -31,18 +31,18 @@ router.post('/', (req, res) => {
         .then( () => {
             res.status(201).json(newProject)
         })
-        .catch(error => {
-            console.log(error);
+        .catch(err => {
             res.status(400).json({
               message: 'Error adding the project',
+              err: err.message
             })
           })
 })
 
 router.put("/:id", validateProjectId, validateProject, (req,res, next) => {
-    const {name, description, completed} = req.body
-    if(!name || !description, !completed){
-        res.status(400).json({message: 'Project ID does not exist'})
+    
+    if(req.body.completed === undefined){
+        next({status: 400, message: 'Project ID does not exist'})
     } else{
         Projects.update(req.params.id, req.body)
             .then(() => {
