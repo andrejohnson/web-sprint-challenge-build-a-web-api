@@ -18,8 +18,8 @@ async function validateActionId(req, res, next){
 
 async function validateAction (req, res, next){
     const {project_id, description, notes, completed} = req.body
-    if(!project_id){
-        res.status(400).json({message: 'missing required project id'})
+    if(req.body.project_id === undefined){
+        next({status: 400, message: 'missing required project id'})
     }
     if(!notes || !notes.trim){
         res.status(400).json({message: 'missing required project notes'})
