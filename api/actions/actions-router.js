@@ -18,8 +18,8 @@ router.get('/', async (req, res ,next) => {
 router.get("/:id", validateActionId, async (req, res, next) => {
     try{
         res.status(200).json(req.action)
-    } catch(err){
-        next(err)
+    } catch{
+        next()
     }
 })
 
